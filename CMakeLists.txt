@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(ropod_tue_1_bringup)
+project(ropod_tue_2_bringup)
 
 find_package(catkin REQUIRED COMPONENTS
     message_generation
@@ -72,14 +72,14 @@ include_directories(
 # )
 # target_link_libraries(exec_name ${catkin_LIBRARIES})
 
-#add_executable(ropod_tf_broadcaster_simulator src/ropod_tf_broadcaster_simulator.cpp)
-#target_link_libraries(ropod_tf_broadcaster_simulator ${catkin_LIBRARIES})
+add_executable(ropod_tf_broadcaster_simulator src/ropod_tf_broadcaster_simulator.cpp)
+target_link_libraries(ropod_tf_broadcaster_simulator ${catkin_LIBRARIES})
 
-#add_executable(ropod_mobidik_tf_broadcaster_simulator src/ropod_mobidik_tf_broadcaster_simulator.cpp)
-#target_link_libraries(ropod_mobidik_tf_broadcaster_simulator ${catkin_LIBRARIES})
+add_executable(ropod_mobidik_tf_broadcaster_simulator src/ropod_mobidik_tf_broadcaster_simulator.cpp)
+target_link_libraries(ropod_mobidik_tf_broadcaster_simulator ${catkin_LIBRARIES})
 
-#add_executable(ropod_mobidik_tf_broadcaster src/ropod_mobidik_tf_broadcaster.cpp)
-#target_link_libraries(ropod_mobidik_tf_broadcaster ${catkin_LIBRARIES})
+add_executable(ropod_mobidik_tf_broadcaster src/ropod_mobidik_tf_broadcaster.cpp)
+target_link_libraries(ropod_mobidik_tf_broadcaster ${catkin_LIBRARIES})
 
-#add_executable(ropod_mobidik_tf_broadcaster_only_ropod src/ropod_mobidik_tf_broadcaster_only_ropod.cpp)
-#target_link_libraries(ropod_mobidik_tf_broadcaster_only_ropod ${catkin_LIBRARIES})
+add_executable(ropod_mobidik_tf_broadcaster_only_ropod src/ropod_mobidik_tf_broadcaster_only_ropod.cpp)
+target_link_libraries(ropod_mobidik_tf_broadcaster_only_ropod ${catkin_LIBRARIES})

@@ -2,7 +2,7 @@
 <launch>
 	<!-- Configurable Parameters -->
 
-	<arg name="robotName" default="ropod_tue_2"/>   
+	<arg name="robotName" default="ropod"/>   
 	<!--arg name="robotName" default="ropod_tue_1"/-->   
 	<arg name="robotCommonName" default="ropod"/>   
 	<arg name="loadName" default="mobidik"/>   
