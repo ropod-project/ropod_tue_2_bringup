@@ -1,0 +1,21 @@
+delta: 0.025
+
+# Initial map size
+xmin: -2.0
+ymin: -2.0
+xmax: 3.0
+ymax: 3.0
+
+# The maximum usable range of the laser
+maxUrange: 3.0
+
+# Number of beams to skip in each scan (default 0) -->
+lskip: 0
+
+# Process a scan each time the robot translates/rotates this far (default 1.0, 0.5)
+linearUpdate: 0.2
+angularUpdate: 0.1 
+
+map_update_interval: 3.0
+
+minimumScore: 100
