@@ -9,6 +9,7 @@
 	<arg name="LOAD_ATTACHED" default="false" />	
 	<arg name="laser" default="true"/>
 	<arg name="laser1_name" value ="laser"/>
+<!--    <arg name="laser1_name" value ="hokuyo_laser_ip"/>-->
 	<arg name="asus_cam" default="false"/> 
 	<arg name="asus_cam_name" value="asusxtion"/>
 	<arg name="asus_cam_calibration" default="false"/>
@@ -100,15 +101,13 @@
                                         <arg name="robot" value="$(arg robotCommonName)"/>
                                 </include>
 -->
+
                                 <include file="$(find robot_common)/launch/hardware/sick_laser.launch">
                                         <arg name="bringup_path" value="$(arg robot_bringup_path)"/>
-                                        <arg name="name" value="$(arg laser1_name)"/>
-                                        <arg name="robot" value="$(arg robotName)"/>
+						<arg name="name" value="$(arg laser1_name)"/>
+						<arg name="robot" value="$(arg robotName)"/>
                                 </include>
-
                         </group>
-
-
 		</group>	
 	</group>
 
