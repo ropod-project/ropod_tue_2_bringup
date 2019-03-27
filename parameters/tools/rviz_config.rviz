@@ -3,7 +3,8 @@ Panels:
     Help Height: 78
     Name: Displays
     Property Tree Widget:
-      Expanded: ~
+      Expanded:
+        - /MarkerArray3
       Splitter Ratio: 0.5
     Tree Height: 775
   - Class: rviz/Selection
@@ -159,6 +160,8 @@ Visualization Manager:
           Value: true
         ropod/laser/scan:
           Value: true
+        ropod/laser_back/scan:
+          Value: true
         ropod/odom:
           Value: true
         ropod/sick_laser/scan:
@@ -176,6 +179,8 @@ Visualization Manager:
                 load/base_link:
                   {}
                 ropod/laser/scan:
+                  {}
+                ropod/laser_back/scan:
                   {}
                 ropod/sick_laser/scan:
                   {}
@@ -448,7 +453,7 @@ Visualization Manager:
       Value: true
     - Class: rviz/MarkerArray
       Enabled: true
-      Marker Topic: /ed/gui/objectMarkers2
+      Marker Topic: /ed/gui/measuredObjects
       Name: MarkerArray
       Namespaces:
         Position Marker: true
@@ -509,25 +514,25 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 16.2605019
+      Distance: 4.78609657
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.0599999987
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: 3.75005841
-        Y: 5.64606524
-        Z: 3.66490817
+        X: 10.8067369
+        Y: 6.16290522
+        Z: 3.34881258
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.0500000007
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.00999999978
-      Pitch: 1.44479644
+      Pitch: 1.56979632
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 1.30539608
+      Yaw: 1.83039558
     Saved: ~
 Window Geometry:
   Displays:
@@ -545,5 +550,5 @@ Window Geometry:
   Views:
     collapsed: true
   Width: 1855
-  X: 1985
-  Y: 149
+  X: 65
+  Y: 24

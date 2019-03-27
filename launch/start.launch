@@ -9,6 +9,7 @@
 	<arg name="LOAD_ATTACHED" default="false" />	
 	<arg name="laser" default="true"/>
 	<arg name="laser1_name" value ="laser"/>
+        <arg name="laser2_name" value ="laser_back"/>
 <!--    <arg name="laser1_name" value ="hokuyo_laser_ip"/>-->
 	<arg name="asus_cam" default="false"/> 
 	<arg name="asus_cam_name" value="asusxtion"/>
@@ -146,6 +147,7 @@
 			<!-- arg name="robot" value="$(arg robotCommonName)" /> -->
 			<arg name="robot" value="$(arg robotName)" />
 			<arg name="laser1" value="$(arg laser1_name)"/>
+                        <arg name="laser2" value="$(arg laser2_name)"/>
 		</include> 
         
 		<!-- Add floorplan. -->
