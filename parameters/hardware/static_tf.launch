@@ -10,7 +10,7 @@
 
     <node pkg="tf" type="static_transform_publisher" name="map2frame" args="0 0 0 0 0 0 /my_frame /map 100" /> 
     <node pkg="tf" type="static_transform_publisher" name="base2LRF" args="0.285 0.0 0.27 0 0 0 /$(arg robot)/base_link /$(arg robot)/$(arg laser1)/scan 100" /> 
-    <node pkg="tf" type="static_transform_publisher" name="base2LRFBack" args="-0.285 0.0 0.27 3.14 0 0 /$(arg robot)/base_link /$(arg robot)/$(arg laser2)/scan 100" /> 
+<!--    <node pkg="tf" type="static_transform_publisher" name="base2LRFBack" args="-0.285 0.0 0.27 3.14 0 0 /$(arg robot)/base_link /$(arg robot)/$(arg laser2)/scan 100" /> -->
 
     <node pkg="tf" type="static_transform_publisher" name="base2SICKLRF" args="0.285 0.0 0.29 0 0 0 /$(arg robot)/base_link /$(arg robot)/sick_laser/scan 100" /> 
 </launch>

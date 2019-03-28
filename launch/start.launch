@@ -37,10 +37,10 @@
 		<group if="$(arg ROBOT_REAL)">
 	  	<!-- Do for both: Simulator and Real Robot -->
 
-		<node name="ropod_low_level_control" pkg="ropod_low_level_control" type="ropod_low_level_control_ros" output="screen"> 
+			<node name="ropod_low_level_control" pkg="ropod_low_level_control" type="ropod_low_level_control_ros" output="screen"> 
 		
 				<remap from="/$(arg robotName)/ropod_low_level_control/odom" to="/$(arg robotName)/odom_incomplete"/> 
-</node>
+			</node>
 		        <!-- Kinematic Controller: Executes velocity commands and publishes Odometry  -->		  
 <!--
 			<node pkg="ropod_4wheel_tdistkinb_cntr" type="ropod_4wheel_tdistkinb_cntr_node" name="ropod_4wheel_kinb_cntr_node" output="screen">
@@ -108,47 +108,59 @@
 						<arg name="name" value="$(arg laser1_name)"/>
 						<arg name="robot" value="$(arg robotName)"/>
                                 </include>
-                        </group>
-		</group>	
-	</group>
+			
+				<group ns="$(arg laser1_name)">
 
-	<group unless="$(arg ROBOT_REAL)">
-	<!-- SIMULATION -->  
-   
-	        <group unless="$(arg LOAD_ATTACHED)">	  
-			<include file="$(find ropod_sim_model)/launch/simulator/gazebo_simulator.launch" >
-                                <arg name="robot" value="$(arg robotCommonName)" />
-                                <arg name="model_name" value="$(arg robotCommonName)_$(arg loadName)" />                                
-                                <arg name="model_path" value="$(arg robot_path)/$(arg robotCommonName)_sim_model" />
-                                <arg name="movingObjects" value="true" />
-                        </include>
-   
-			<!-- Launch tf broadcaster for ropod robot -->
-           		<node pkg="$(arg robotPackage)" type="ropod_mobidik_tf_broadcaster_only_ropod" name="ropod_mobidik_tf_broadcaster_only_ropod" />
+			                <node pkg="urg_node" type="urg_node" name="urg_node" output="screen" >
+						<rosparam command="load" file="$(arg robot_bringup_path)/parameters/hardware/hokuyo_laser_back.yaml"/>
+				                <remap from="/diagnostics" to="diagnostics_back"/>
+			                </node>
+				</group>
 
-		</group>
-       
+				<node pkg="tf" type="static_transform_publisher" name="base2LRFBack" args="-0.262 0.14493 0.27 3.14 0 0 /$(arg robotName)/base_link /$(arg robotName)/$(arg laser2_name)/scan 100" />
+			</group>
+	</group>	
+</group>
 
-		<group if="$(arg LOAD_ATTACHED)">
-		
-			<include file="$(find ropod_sim_model)/launch/simulator/gazebo_simulator.launch" >
-				<arg name="robot" value="$(arg robotCommonName)" />
-				<arg name="model_name" value="$(arg robotCommonName)_$(arg loadName)" />				
-				<arg name="model_path" value="$(arg robot_path)/$(arg robotCommonName)_model" />
-			</include>
- 
-                        <!-- Launch tf broadcaster for ropod robot -->
-                        <node pkg="$(arg robotPackage)" type="ropod_mobidik_tf_broadcaster_simulator" name="ropod_mobidik_tf_broadcaster_simulator" />
-		
-		</group>
-        
-		<!-- Specify static transforms -->
-        <include file="$(arg robot_bringup_path)/parameters/hardware/static_tf.launch" >
-			<!-- arg name="robot" value="$(arg robotCommonName)" /> -->
-			<arg name="robot" value="$(arg robotName)" />
-			<arg name="laser1" value="$(arg laser1_name)"/>
-                        <arg name="laser2" value="$(arg laser2_name)"/>
+<group unless="$(arg ROBOT_REAL)">
+<!-- SIMULATION -->  
+
+<group unless="$(arg LOAD_ATTACHED)">	  
+	<include file="$(find ropod_sim_model)/launch/simulator/gazebo_simulator.launch" >
+		<arg name="robot" value="$(arg robotCommonName)" />
+		<arg name="model_name" value="$(arg robotCommonName)_$(arg loadName)" />                                
+		<arg name="model_path" value="$(arg robot_path)/$(arg robotCommonName)_sim_model" />
+		<arg name="movingObjects" value="true" />
+	</include>
+
+	<!-- Launch tf broadcaster for ropod robot -->
+	<node pkg="$(arg robotPackage)" type="ropod_mobidik_tf_broadcaster_only_ropod" name="ropod_mobidik_tf_broadcaster_only_ropod" />
+
+</group>
+
+
+<group if="$(arg LOAD_ATTACHED)">
+
+	<include file="$(find ropod_sim_model)/launch/simulator/gazebo_simulator.launch" >
+		<arg name="robot" value="$(arg robotCommonName)" />
+		<arg name="model_name" value="$(arg robotCommonName)_$(arg loadName)" />				
+		<arg name="model_path" value="$(arg robot_path)/$(arg robotCommonName)_model" />
+	</include>
+
+	<!-- Launch tf broadcaster for ropod robot -->
+	<node pkg="$(arg robotPackage)" type="ropod_mobidik_tf_broadcaster_simulator" name="ropod_mobidik_tf_broadcaster_simulator" />
+
+</group>
+
+<!-- Specify static transforms -->
+<include file="$(arg robot_bringup_path)/parameters/hardware/static_tf.launch" >
+	<!-- arg name="robot" value="$(arg robotCommonName)" /> -->
+	<arg name="robot" value="$(arg robotName)" />
+	<arg name="laser1" value="$(arg laser1_name)"/>
+	<arg name="laser2" value="$(arg laser2_name)"/>
 		</include> 
+    <node pkg="tf" type="static_transform_publisher" name="base2LRFBack" args="-0.285 0.0 0.27 3.14 0 0 /$(arg robotName)/base_link /$(arg robotName)/$(arg laser2_name)/scan 100" />
+
         
 		<!-- Add floorplan. -->
        	<node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" 
