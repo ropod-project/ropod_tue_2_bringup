@@ -109,7 +109,7 @@
 						<arg name="robot" value="$(arg robotName)"/>
                                 </include>
 			
-				<group ns="$(arg laser1_name)">
+				<group ns="$(arg laser2_name)">
 
 			                <node pkg="urg_node" type="urg_node" name="urg_node" output="screen" >
 						<rosparam command="load" file="$(arg robot_bringup_path)/parameters/hardware/hokuyo_laser_back.yaml"/>
