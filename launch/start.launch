@@ -10,6 +10,7 @@
 	<arg name="laser" default="true"/>
 	<arg name="laser1_name" value ="laser"/>
         <arg name="laser2_name" value ="laser_back"/>
+        <arg name="add_laser_back" value="false"/>
 <!--    <arg name="laser1_name" value ="hokuyo_laser_ip"/>-->
 	<arg name="asus_cam" default="false"/> 
 	<arg name="asus_cam_name" value="asusxtion"/>
@@ -109,13 +110,14 @@
 						<arg name="robot" value="$(arg robotName)"/>
                                 </include>
 			
-				<group ns="$(arg laser2_name)">
+                                
+                                <group ns="$(arg laser2_name)">
+                                        <node pkg="urg_node" type="urg_node" name="urg_node" output="screen" >
+                                                <rosparam command="load" file="$(arg robot_bringup_path)/parameters/hardware/hokuyo_laser_back.yaml"/>
+                                                <remap from="/diagnostics" to="diagnostics_back"/>
+                                         </node>
+                                </group>
 
-			                <node pkg="urg_node" type="urg_node" name="urg_node" output="screen" >
-						<rosparam command="load" file="$(arg robot_bringup_path)/parameters/hardware/hokuyo_laser_back.yaml"/>
-				                <remap from="/diagnostics" to="diagnostics_back"/>
-			                </node>
-				</group>
 
 				<node pkg="tf" type="static_transform_publisher" name="base2LRFBack" args="-0.262 0.14493 0.27 3.14 0 0 /$(arg robotName)/base_link /$(arg robotName)/$(arg laser2_name)/scan 100" />
 			</group>
@@ -131,6 +133,7 @@
 		<arg name="model_name" value="$(arg robotCommonName)_$(arg loadName)" />                                
 		<arg name="model_path" value="$(arg robot_path)/$(arg robotCommonName)_sim_model" />
 		<arg name="movingObjects" value="true" />
+                <arg name="doubleLaser" value="false"/>
 	</include>
 
 	<!-- Launch tf broadcaster for ropod robot -->
@@ -143,8 +146,9 @@
 
 	<include file="$(find ropod_sim_model)/launch/simulator/gazebo_simulator.launch" >
 		<arg name="robot" value="$(arg robotCommonName)" />
-		<arg name="model_name" value="$(arg robotCommonName)_$(arg loadName)" />				
+		<arg name="model_name" value="$(arg robotCommonName)_$(arg loadName)" />
 		<arg name="model_path" value="$(arg robot_path)/$(arg robotCommonName)_model" />
+                <arg name="doubleLaser" value="false"/>
 	</include>
 
 	<!-- Launch tf broadcaster for ropod robot -->
