@@ -3,8 +3,7 @@ Panels:
     Help Height: 78
     Name: Displays
     Property Tree Widget:
-      Expanded:
-        - /MarkerArray3
+      Expanded: ~
       Splitter Ratio: 0.5
     Tree Height: 775
   - Class: rviz/Selection
@@ -396,7 +395,7 @@ Visualization Manager:
     - Class: rviz/MarkerArray
       Enabled: true
       Marker Topic: /ed/gui/objectMarkers
-      Name: MarkerArray
+      Name: Modelled Objects
       Namespaces:
         Position Marker: true
         Rotational Velocity Marker: true
@@ -436,25 +435,25 @@ Visualization Manager:
       Queue Size: 100
       Value: false
     - Class: rviz/Marker
-      Enabled: true
+      Enabled: false
       Marker Topic: /cornerPointMeasured
       Name: Marker
       Namespaces:
         {}
       Queue Size: 100
-      Value: true
+      Value: false
     - Class: rviz/Marker
-      Enabled: true
+      Enabled: false
       Marker Topic: /cornerPointModelled
       Name: Marker
       Namespaces:
         {}
       Queue Size: 100
-      Value: true
+      Value: false
     - Class: rviz/MarkerArray
       Enabled: true
       Marker Topic: /ed/gui/measuredObjects
-      Name: MarkerArray
+      Name: Measured Objects
       Namespaces:
         Position Marker: true
       Queue Size: 100
@@ -477,7 +476,7 @@ Visualization Manager:
       Max Intensity: 0
       Min Color: 0; 0; 0
       Min Intensity: 0
-      Name: LaserScan
+      Name: Associated Points
       Position Transformer: XYZ
       Queue Size: 10
       Selectable: true
@@ -514,25 +513,25 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 4.78609657
+      Distance: 7.88677406
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.0599999987
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: 10.8067369
-        Y: 6.16290522
-        Z: 3.34881258
+        X: 3.7969625
+        Y: 2.5046773
+        Z: 3.50369811
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.0500000007
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.00999999978
-      Pitch: 1.56979632
+      Pitch: 1.56479633
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 1.83039558
+      Yaw: 1.36539638
     Saved: ~
 Window Geometry:
   Displays:
@@ -550,5 +549,5 @@ Window Geometry:
   Views:
     collapsed: true
   Width: 1855
-  X: 65
+  X: 1985
   Y: 24
