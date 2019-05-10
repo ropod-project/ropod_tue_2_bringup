@@ -117,9 +117,10 @@
                                                 <remap from="/diagnostics" to="diagnostics_back"/>
                                          </node>
                                 </group>
+<node pkg="tf" type="static_transform_publisher" name="base2LRFBack" args="0.285 0.0 0.29 0 0 0 /$(arg robotName)/base_link /$(arg robotName)/$(arg laser2_name)_avg/scan 100" />
 
 
-				<node pkg="tf" type="static_transform_publisher" name="base2LRFBack" args="-0.262 0.14493 0.27 3.14 0 0 /$(arg robotName)/base_link /$(arg robotName)/$(arg laser2_name)/scan 100" />
+<!--				<node pkg="tf" type="static_transform_publisher" name="base2LRFBack" args="-0.262 0.14493 0.27 3.14 0 0 /$(arg robotName)/base_link /$(arg robotName)/$(arg laser2_name)/scan 100" />-->
 			</group>
 	</group>	
 </group>
