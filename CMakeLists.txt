@@ -83,3 +83,6 @@ target_link_libraries(ropod_mobidik_tf_broadcaster ${catkin_LIBRARIES})
 
 add_executable(ropod_mobidik_tf_broadcaster_only_ropod src/ropod_mobidik_tf_broadcaster_only_ropod.cpp)
 target_link_libraries(ropod_mobidik_tf_broadcaster_only_ropod ${catkin_LIBRARIES})
+
+add_executable(laserBack_NoiseReduction src/laserBack_NoiseReduction.cpp)
+target_link_libraries(laserBack_NoiseReduction ${catkin_LIBRARIES})
