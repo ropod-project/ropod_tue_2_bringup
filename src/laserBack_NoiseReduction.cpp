@@ -18,13 +18,15 @@ int main(int argc, char** argv){
   ros::init(argc, argv, "laserBack_NoiseReduction");
   ros::NodeHandle n;
 
-   ros::Subscriber sub_laser = n.subscribe<sensor_msgs::LaserScan>("/ropod/laserBack/scan", 10, laserCallback);  
-   averagedScan_pub = n.advertise<sensor_msgs::LaserScan>("/ropod/laserBack_avg/scan", 1);
+   ros::Subscriber sub_laser = n.subscribe<sensor_msgs::LaserScan>("/ropod/laser_back/scan", 10, laserCallback);  
+   averagedScan_pub = n.advertise<sensor_msgs::LaserScan>("/ropod/laser/scan", 1);
    
    unsigned int latestScansPos = 0;
    int latestSeqId = 0;
    ros::Rate r(40);
    
+int initialized = 0; 
+
   while(n.ok()){
   
     if(scan.header.seq != latestSeqId)
@@ -33,11 +35,14 @@ int main(int argc, char** argv){
           
           latestScans[latestScansPos] = scan;
           latestScansPos++;
+if (latestScansPos == N_SCANS_FOR_AVERAGE)
+{
+	initialized = 1;
+}
           latestScansPos = latestScansPos % N_SCANS_FOR_AVERAGE;
           
           sensor_msgs::LaserScan avgScan = scan;
-          
-          for(unsigned int iScan = 0; iScan < scan.ranges.size(); iScan++)
+          for(unsigned int iScan = 0; iScan < scan.ranges.size() && initialized; iScan++)
           {
                   float distanceSum = 0.0;
                   float intensitySum = 0.0;
@@ -47,7 +52,6 @@ int main(int argc, char** argv){
                           distanceSum+= latestScans[iMultiScans].ranges[iScan];
                           intensitySum+= latestScans[iMultiScans].intensities[iScan];
                   }
-                  
                   avgScan.ranges[iScan] = distanceSum / N_SCANS_FOR_AVERAGE;
                   avgScan.intensities[iScan] = intensitySum / N_SCANS_FOR_AVERAGE;
           }
