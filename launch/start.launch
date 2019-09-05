@@ -141,8 +141,8 @@
 		<arg name="robot" value="$(arg robotCommonName)" />
 		<arg name="model_name" value="$(arg robotCommonName)_$(arg loadName)" />                                
 		<arg name="model_path" value="$(arg robot_path)/$(arg robotCommonName)_sim_model" />
-		<arg name="movingObjects" value="true" />
-                <arg name="doubleLaser" value="false"/>
+		<arg name="movingObjects" value="false" />
+                <!--  <arg name="doubleLaser" value="false"/>-->
 	</include>
 
 	<!-- Launch tf broadcaster for ropod robot -->
@@ -157,7 +157,7 @@
 		<arg name="robot" value="$(arg robotCommonName)" />
 		<arg name="model_name" value="$(arg robotCommonName)_$(arg loadName)" />
 		<arg name="model_path" value="$(arg robot_path)/$(arg robotCommonName)_model" />
-                <arg name="doubleLaser" value="false"/>
+                <!--  <arg name="doubleLaser" value="false"/>-->
 	</include>
 
 	<!-- Launch tf broadcaster for ropod robot -->
