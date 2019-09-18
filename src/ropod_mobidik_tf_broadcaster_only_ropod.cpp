@@ -14,6 +14,7 @@ nav_msgs::Odometry odommsg;
 nav_msgs::Odometry loadodommsg;
 
 ros::Publisher pub_robcmdvel;
+ros::Publisher pub_joypadrobcmdvel;
 ros::Publisher pub_loadodom;
 ros::Publisher pub_ropod_odom;
 tf::Transform base2loadTF;
@@ -143,6 +144,53 @@ void loadvelcmdCallback(const geometry_msgs::Twist::ConstPtr& msg){
   pub_robcmdvel.publish(ropod_cmd_vel);
 }
 
+void joypadvelcmdCallback(const geometry_msgs::Twist::ConstPtr& msg){	
+  // Transform velocity command from load to ropod. We assume that the load is shifted only in x.
+  // Upgrade to any pattern of oad shift. The estimation should be done right after load is attached.
+  tf::Vector3 loadShift = base2loadTF.getOrigin();
+  geometry_msgs::Twist ropod_cmd_vel;
+  ropod_cmd_vel.linear.x  =  msg->linear.x;
+  if(std::abs(loadShift.x())>0.0)
+    ropod_cmd_vel.linear.y  =  0.0 + msg->angular.z*(-loadShift.x()); 
+  else
+    ropod_cmd_vel.linear.y  = msg->linear.y; // Allow for holonomic movements when no load is connected
+      
+  ropod_cmd_vel.linear.z  =  msg->linear.z;
+  ropod_cmd_vel.angular.x =  msg->angular.x;
+  ropod_cmd_vel.angular.y =  msg->angular.y;
+  ropod_cmd_vel.angular.z =  msg->angular.z;
+  
+  double min_magn_xy_vel = 0.15;
+  double min_magn_theta_vel = 0.15;
+  double sc_factor;
+  if(std::abs(ropod_cmd_vel.linear.x) < min_magn_xy_vel && std::abs(ropod_cmd_vel.linear.x) < min_magn_xy_vel)      
+  {
+      if(std::abs(ropod_cmd_vel.linear.x)>std::abs(ropod_cmd_vel.linear.y) && std::abs(ropod_cmd_vel.linear.x) > 0.05)
+      {
+          sc_factor = std::abs(min_magn_xy_vel/ropod_cmd_vel.linear.x);
+          ropod_cmd_vel.linear.x  *= sc_factor;
+          ropod_cmd_vel.linear.y  *= sc_factor;
+          ropod_cmd_vel.angular.z *= sc_factor;
+          
+      }      
+      if (std::abs(ropod_cmd_vel.linear.y)>std::abs(ropod_cmd_vel.linear.x) && std::abs(ropod_cmd_vel.linear.y) > 0.05)
+      {
+          sc_factor = std::abs(min_magn_xy_vel/ropod_cmd_vel.linear.y);
+          ropod_cmd_vel.linear.x  *= sc_factor;
+          ropod_cmd_vel.linear.y  *= sc_factor;
+          ropod_cmd_vel.angular.z *= sc_factor;
+      }
+  }
+  
+  if(std::abs(ropod_cmd_vel.angular.z) < min_magn_theta_vel && std::abs(ropod_cmd_vel.angular.z) > 0.05 && ropod_cmd_vel.linear.x == 0.0 && ropod_cmd_vel.linear.y == 0.0)
+  {
+      sc_factor = std::abs(min_magn_theta_vel/ropod_cmd_vel.angular.z);
+      ropod_cmd_vel.angular.z *= sc_factor;
+  }
+    
+  pub_joypadrobcmdvel.publish(ropod_cmd_vel);
+}
+
 int main(int argc, char** argv){
   ros::init(argc, argv, "robot_tf_publisher");
   ros::NodeHandle n;
@@ -169,10 +217,12 @@ int main(int argc, char** argv){
 
   
    pub_robcmdvel = n.advertise<geometry_msgs::Twist>("/ropod/cmd_vel", 1);
+   pub_joypadrobcmdvel = n.advertise<geometry_msgs::Twist>("/joypad_ropod/cmd_vel", 1);
    pub_loadodom = n.advertise<nav_msgs::Odometry>("/load/odom", 1);
    pub_ropod_odom = n.advertise<nav_msgs::Odometry>("/ropod/odom", 1);
    ros::Subscriber sub_odom = n.subscribe<nav_msgs::Odometry>("/ropod/odom_incomplete", 1, poseCallback);  
    ros::Subscriber sub_loadcmdvel = n.subscribe<geometry_msgs::Twist>("/load/cmd_vel", 1, loadvelcmdCallback);
+   ros::Subscriber sub_joypad_cmdvel = n.subscribe<geometry_msgs::Twist>("/joypad/cmd_vel", 1, joypadvelcmdCallback);
    
    ros::Subscriber load_attached_sub = n.subscribe<std_msgs::Bool>("/route_navigation/set_load_attached", 10, loadAttachedCallback);   
    
