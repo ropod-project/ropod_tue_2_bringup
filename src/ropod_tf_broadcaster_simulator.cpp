@@ -9,6 +9,7 @@ nav_msgs::Odometry odommsg;
 tf::Quaternion q3;
 tf::Transform base2loadTF; // Sending a zero transformation makes configuration easier. It also means there is no load.
 ros::Publisher pub_ropod_odom;
+std::string robotname;
 
 // /* 
 void poseCallback(const nav_msgs::Odometry::ConstPtr& msg){	
@@ -24,8 +25,8 @@ void poseCallback(const nav_msgs::Odometry::ConstPtr& msg){
   odommsg.twist.twist.angular.x = msg->twist.twist.angular.x;
   odommsg.twist.twist.angular.y = msg->twist.twist.angular.y;
   odommsg.twist.twist.angular.z = msg->twist.twist.angular.z;    
-  odommsg.header.frame_id = "/ropod/odom";
-  odommsg.child_frame_id = "/ropod/base_link";
+  odommsg.header.frame_id = robotname + "/odom";
+  odommsg.child_frame_id = robotname + "/base_link";
   odommsg.header.stamp = ros::Time::now();
   
   q3 = tf::Quaternion(odommsg.pose.pose.orientation.x, odommsg.pose.pose.orientation.y, odommsg.pose.pose.orientation.z, odommsg.pose.pose.orientation.w); 
@@ -73,9 +74,19 @@ int main(int argc, char** argv){
   q3.setRPY(0, 0, 0);  
   
    base2loadTF = tf::Transform(q, tf::Vector3(0.0, 0.0, 0.0));
+   
+  robotname = ros::this_node::getNamespace();
+int index = robotname.find("//");
+if (index != -1 ) // ugly check for // at beginning
+{
+        if(index == 0)
+        {
+                robotname.erase(index, index + 1);   
+        }
+  } 
   
-   pub_ropod_odom = n.advertise<nav_msgs::Odometry>("/ropod/odom", 1);
-   ros::Subscriber sub = n.subscribe<nav_msgs::Odometry>("/ropod/odom_incomplete", 1, poseCallback);
+   pub_ropod_odom = n.advertise<nav_msgs::Odometry>(robotname + "/odom", 1);
+   ros::Subscriber sub = n.subscribe<nav_msgs::Odometry>(robotname + "/odom_incomplete", 1, poseCallback);
   //ros::Subscriber sub = n.subscribe<geometry_msgs::PoseArray>("/ed/localization/particles", 1, poseCallback);
   
   while(n.ok()){
@@ -89,13 +100,13 @@ int main(int argc, char** argv){
     
     /* Sending a zero transformation makes configuration easier. It also means there is no load */    
    broadcaster.sendTransform(
-      tf::StampedTransform(base2loadTF, ros::Time::now(),"/ropod/base_link", "/load/base_link"));
+      tf::StampedTransform(base2loadTF, ros::Time::now(),robotname + "/base_link", robotname + "/load/base_link"));
     
 	broadcaster.sendTransform(
       tf::StampedTransform(
         tf::Transform(q3, tf::Vector3(odommsg.pose.pose.position.x, odommsg.pose.pose.position.y, 0.0)),        
         //tf::Transform(q, tf::Vector3(0.0, 0.0, 0.3)),
-        ros::Time::now(),"/ropod/odom","/ropod/base_link"));      
+        ros::Time::now(),robotname + "/odom",robotname + "/base_link"));      
     
      
     ros::spinOnce();           

@@ -1,5 +1,5 @@
 ip_address: 169.254.104.127
 ip_port: 10940
-frame_id: /ropod/laser_back/scan
+frame_id: /ropod_tue_2/laser_back/scan
 angle_min: -2.0
 angle_max: 2.0

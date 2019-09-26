@@ -53,12 +53,12 @@ Visualization Manager:
       Entity label opacity: 1
       Mesh query service name: ed/gui/query_meshes
       Name: WorldModel
-      Topic: /ed/gui/entities
+      Topic: /ropod_tue_2/ed/gui/entities
       Unreliable: false
       Value: true
     - Class: rviz/MarkerArray
       Enabled: false
-      Marker Topic: /ed/rviz
+      Marker Topic: /ropod_tue_2/ed/rviz
       Name: MarkerArray
       Namespaces:
         {}
@@ -95,7 +95,7 @@ Visualization Manager:
         Shaft Length: 1
         Shaft Radius: 0.0500000007
         Value: Arrow
-      Topic: /ropod/odom
+      Topic: /ropod_tue_2/odom
       Unreliable: false
       Value: true
     - Alpha: 1
@@ -111,7 +111,7 @@ Visualization Manager:
       Shaft Length: 0.230000004
       Shaft Radius: 0.00999999978
       Shape: Arrow (Flat)
-      Topic: /ed/localization/particles
+      Topic: /ropod_tue_2/ed/localization/particles
       Unreliable: false
       Value: true
     - Alpha: 1
@@ -139,7 +139,7 @@ Visualization Manager:
       Size (Pixels): 3
       Size (m): 0.0500000007
       Style: Flat Squares
-      Topic: /ropod/laser/scan
+      Topic: /ropod_tue_2/laser/scan
       Unreliable: false
       Use Fixed Frame: true
       Use rainbow: true
@@ -155,15 +155,15 @@ Visualization Manager:
           Value: true
         my_frame:
           Value: true
-        ropod/base_link:
+        ropod_tue_2/base_link:
           Value: true
-        ropod/laser/scan:
+        ropod_tue_2/laser/scan:
           Value: true
-        ropod/laser_back/scan:
+        ropod_tue_2/laser_back/scan:
           Value: true
-        ropod/odom:
+        ropod_tue_2/odom:
           Value: true
-        ropod/sick_laser/scan:
+        ropod_tue_2/sick_laser/scan:
           Value: true
       Marker Scale: 1
       Name: TF
@@ -173,15 +173,15 @@ Visualization Manager:
       Tree:
         my_frame:
           map:
-            ropod/odom:
-              ropod/base_link:
+            ropod_tue_2/odom:
+              ropod_tue_2/base_link:
                 load/base_link:
                   {}
-                ropod/laser/scan:
+                ropod_tue_2/laser/scan:
                   {}
-                ropod/laser_back/scan:
+                ropod_tue_2/laser_back/scan:
                   {}
-                ropod/sick_laser/scan:
+                ropod_tue_2/sick_laser/scan:
                   {}
       Update Interval: 0
       Value: true
@@ -190,7 +190,7 @@ Visualization Manager:
       Color: 25; 255; 0
       Enabled: true
       Name: Footprint
-      Topic: /maneuver_navigation/local_costmap/footprint
+      Topic: /ropod_tue_2/maneuver_navigation/local_costmap/footprint
       Unreliable: false
       Value: true
     - Alpha: 0.699999988
@@ -199,7 +199,7 @@ Visualization Manager:
       Draw Behind: false
       Enabled: false
       Name: Ed Nav map
-      Topic: /ed/navigation/map
+      Topic: /ropod_tue_2/ed/navigation/map
       Unreliable: false
       Use Timestamp: false
       Value: false
@@ -209,7 +209,7 @@ Visualization Manager:
       Draw Behind: false
       Enabled: false
       Name: Local cost map
-      Topic: /maneuver_navigation/local_costmap/costmap
+      Topic: /ropod_tue_2/maneuver_navigation/local_costmap/costmap
       Unreliable: false
       Use Timestamp: false
       Value: false
@@ -233,7 +233,7 @@ Visualization Manager:
       Radius: 0.0299999993
       Shaft Diameter: 0.100000001
       Shaft Length: 0.100000001
-      Topic: /maneuver_navigation/TebLocalPlannerROS/global_plan
+      Topic: /ropod_tue_2/maneuver_navigation/TebLocalPlannerROS/global_plan
       Unreliable: false
       Value: true
     - Alpha: 1
@@ -256,7 +256,7 @@ Visualization Manager:
       Radius: 0.0299999993
       Shaft Diameter: 0.100000001
       Shaft Length: 0.100000001
-      Topic: /maneuver_navigation/TebLocalPlannerROS/local_plan
+      Topic: /ropod_tue_2/maneuver_navigation/TebLocalPlannerROS/local_plan
       Unreliable: false
       Value: true
     - Alpha: 0.699999988
@@ -265,7 +265,7 @@ Visualization Manager:
       Draw Behind: false
       Enabled: true
       Name: Map
-      Topic: /map
+      Topic: /ropod_tue_2/map
       Unreliable: false
       Use Timestamp: false
       Value: true
@@ -282,7 +282,7 @@ Visualization Manager:
       Shaft Length: 0.230000004
       Shaft Radius: 0.00999999978
       Shape: Arrow (Flat)
-      Topic: /maneuver_navigation/TebLocalPlannerROS/teb_poses
+      Topic: /ropod_tue_2/maneuver_navigation/TebLocalPlannerROS/teb_poses
       Unreliable: false
       Value: true
     - Alpha: 1
@@ -310,14 +310,14 @@ Visualization Manager:
       Size (Pixels): 3
       Size (m): 0.0500000007
       Style: Flat Squares
-      Topic: /ropod/sick_laser/scan
+      Topic: /ropod_tue_2/sick_laser/scan
       Unreliable: false
       Use Fixed Frame: true
       Use rainbow: true
       Value: false
     - Class: rviz/MarkerArray
       Enabled: false
-      Marker Topic: /ed/gui/objectMarkers
+      Marker Topic: /ropod_tue_2/ed/gui/objectMarkers
       Name: NewEntities
       Namespaces:
         {}
@@ -348,7 +348,7 @@ Visualization Manager:
       Size (Pixels): 3
       Size (m): 0.0500000007
       Style: Flat Squares
-      Topic: /ropod/sick_laser/scan_filtered
+      Topic: /ropod_tue_2/sick_laser/scan_filtered
       Unreliable: false
       Use Fixed Frame: true
       Use rainbow: true
@@ -366,12 +366,12 @@ Visualization Manager:
       Shaft Length: 0.5
       Shaft Radius: 0.100000001
       Shape: Arrow (3D)
-      Topic: /route_navigation/nav_waypoints
+      Topic: /ropod_tue_2/route_navigation/nav_waypoints
       Unreliable: false
       Value: true
     - Class: rviz/MarkerArray
       Enabled: true
-      Marker Topic: visualization_marker_array
+      Marker Topic: /ropod_tue_2/visualization_marker_array
       Name: Shapes OSM
       Namespaces:
         {}
@@ -389,12 +389,12 @@ Visualization Manager:
       Shaft Length: 1
       Shaft Radius: 0.100000001
       Shape: Arrow
-      Topic: /maneuver_navigation/goal_rviz
+      Topic: /ropod_tue_2/maneuver_navigation/goal_rviz
       Unreliable: false
       Value: true
     - Class: rviz/MarkerArray
       Enabled: true
-      Marker Topic: /ed/gui/objectMarkers
+      Marker Topic: /ropod_tue_2/ed/gui/objectMarkers
       Name: Modelled Objects
       Namespaces:
         Position Marker: true
@@ -404,7 +404,7 @@ Visualization Manager:
       Value: true
     - Class: rviz/Marker
       Enabled: false
-      Marker Topic: /MeasuredPoints
+      Marker Topic: /ropod_tue_2/MeasuredPoints
       Name: Marker
       Namespaces:
         {}
@@ -412,7 +412,7 @@ Visualization Manager:
       Value: false
     - Class: rviz/Marker
       Enabled: false
-      Marker Topic: /ModelledPoints
+      Marker Topic: /ropod_tue_2/ModelledPoints
       Name: Marker
       Namespaces:
         {}
@@ -420,7 +420,7 @@ Visualization Manager:
       Value: false
     - Class: rviz/Marker
       Enabled: false
-      Marker Topic: /MeasuredPointsAll
+      Marker Topic: /ropod_tue_2/MeasuredPointsAll
       Name: Marker
       Namespaces:
         {}
@@ -428,7 +428,7 @@ Visualization Manager:
       Value: false
     - Class: rviz/Marker
       Enabled: false
-      Marker Topic: /ModelledPointsAll
+      Marker Topic: /ropod_tue_2/ModelledPointsAll
       Name: Marker
       Namespaces:
         {}
@@ -436,7 +436,7 @@ Visualization Manager:
       Value: false
     - Class: rviz/Marker
       Enabled: false
-      Marker Topic: /cornerPointMeasured
+      Marker Topic: /ropod_tue_2/cornerPointMeasured
       Name: Marker
       Namespaces:
         {}
@@ -444,7 +444,7 @@ Visualization Manager:
       Value: false
     - Class: rviz/Marker
       Enabled: false
-      Marker Topic: /cornerPointModelled
+      Marker Topic: /ropod_tue_2/cornerPointModelled
       Name: Marker
       Namespaces:
         {}
@@ -452,7 +452,7 @@ Visualization Manager:
       Value: false
     - Class: rviz/MarkerArray
       Enabled: true
-      Marker Topic: /ed/gui/measuredObjects
+      Marker Topic: /ropod_tue_2/ed/gui/measuredObjects
       Name: Measured Objects
       Namespaces:
         Position Marker: true
@@ -483,7 +483,7 @@ Visualization Manager:
       Size (Pixels): 3
       Size (m): 0.00999999978
       Style: Flat Squares
-      Topic: /ed/associatedPoints
+      Topic: /ropod_tue_2/ed/associatedPoints
       Unreliable: false
       Use Fixed Frame: true
       Use rainbow: true
@@ -503,12 +503,12 @@ Visualization Manager:
     - Class: rviz/FocusCamera
     - Class: rviz/Measure
     - Class: rviz/SetInitialPose
-      Topic: /initialpose
+      Topic: /ropod_tue_2/initialpose
     - Class: rviz/SetGoal
-      Topic: /route_navigation/simple_goal
+      Topic: /ropod_tue_2/route_navigation/simple_goal
     - Class: rviz/PublishPoint
       Single click: true
-      Topic: /clicked_point
+      Topic: /ropod_tue_2/clicked_point
   Value: true
   Views:
     Current:

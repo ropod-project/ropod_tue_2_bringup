@@ -16,6 +16,7 @@ ros::Publisher pub_robcmdvel;
 ros::Publisher pub_loadodom;
 ros::Publisher pub_ropod_odom;
 tf::Transform base2loadTF;
+std::string robotname;
 
 // /* 
 void poseCallback(const nav_msgs::Odometry::ConstPtr& msg){	
@@ -31,8 +32,8 @@ void poseCallback(const nav_msgs::Odometry::ConstPtr& msg){
   odommsg.twist.twist.angular.x = msg->twist.twist.angular.x;
   odommsg.twist.twist.angular.y = msg->twist.twist.angular.y;
   odommsg.twist.twist.angular.z = msg->twist.twist.angular.z;     
-  odommsg.header.frame_id = "/ropod/odom";
-  odommsg.child_frame_id = "/ropod/base_link";
+  odommsg.header.frame_id = robotname + "/odom";
+  odommsg.child_frame_id = robotname + "/base_link";
   odommsg.header.stamp = ros::Time::now();
   pub_ropod_odom.publish(odommsg);     
   
@@ -82,8 +83,8 @@ void loadposeCallback(const nav_msgs::Odometry::ConstPtr& msg){
   loadodommsg.twist.twist.angular.x = msg->twist.twist.angular.x;
   loadodommsg.twist.twist.angular.y = msg->twist.twist.angular.y;
   loadodommsg.twist.twist.angular.z = msg->twist.twist.angular.z;     
-  loadodommsg.header.frame_id = "/load/odom";
-  loadodommsg.child_frame_id = "/load/base_link";
+  loadodommsg.header.frame_id = robotname + "/load/odom";
+  loadodommsg.child_frame_id = robotname + "/load/base_link";
   loadodommsg.header.stamp = ros::Time::now();
   pub_loadodom.publish(loadodommsg);     
 }
@@ -162,23 +163,27 @@ int main(int argc, char** argv){
   ros::Rate r(30);
 
   tf::TransformBroadcaster broadcaster;
-  
 
-  
   tf::Quaternion q;
   q.setRPY(0, 0, 0);
   
   base2loadTF = tf::Transform(q, tf::Vector3(-1.045, 0.0, 0.0));
-  
+    robotname = ros::this_node::getNamespace();
+    int index = robotname.find("//");
+if (index != -1 ) // ugly check for // at beginning
+{
+        if(index == 0)
+        {
+                robotname.erase(index, index + 1);   
+        }
+  } 
 
-
-  
-   pub_robcmdvel = n.advertise<geometry_msgs::Twist>("/ropod/cmd_vel", 1);
-   pub_loadodom = n.advertise<nav_msgs::Odometry>("/load/odom", 1);
-   pub_ropod_odom = n.advertise<nav_msgs::Odometry>("/ropod/odom", 1);
-   ros::Subscriber sub_odom = n.subscribe<nav_msgs::Odometry>("/ropod/odom_incomplete", 1, poseCallback);
-   ros::Subscriber sub_loadodom = n.subscribe<nav_msgs::Odometry>("/load/odom_incomplete", 1, loadposeCallback);
-   ros::Subscriber sub_loadcmdvel = n.subscribe<geometry_msgs::Twist>("/load/cmd_vel", 1, loadvelcmdCallback);
+   pub_robcmdvel = n.advertise<geometry_msgs::Twist>(robotname + "/cmd_vel", 1);
+   pub_loadodom = n.advertise<nav_msgs::Odometry>(robotname + "/load/odom", 1);
+   pub_ropod_odom = n.advertise<nav_msgs::Odometry>(robotname + "/odom", 1);
+   ros::Subscriber sub_odom = n.subscribe<nav_msgs::Odometry>(robotname + "/odom_incomplete", 1, poseCallback);
+   ros::Subscriber sub_loadodom = n.subscribe<nav_msgs::Odometry>(robotname + "/load/odom_incomplete", 1, loadposeCallback);
+   ros::Subscriber sub_loadcmdvel = n.subscribe<geometry_msgs::Twist>(robotname + "/load/cmd_vel", 1, loadvelcmdCallback);
    
   //ros::Subscriber sub = n.subscribe<geometry_msgs::PoseArray>("/ed/localization/particles", 1, poseCallback);
   
@@ -191,7 +196,7 @@ int main(int argc, char** argv){
     
     /* In the future  this transformation needs to be adjusted based on an estimation of the real kinematics constraints*/    
    broadcaster.sendTransform(
-      tf::StampedTransform(base2loadTF, ros::Time::now(),"/ropod/base_link", "/load/base_link"));
+      tf::StampedTransform(base2loadTF, ros::Time::now(),robotname + "/base_link", robotname + "/load/base_link"));
    
         
     /* odometry transform */
@@ -199,7 +204,7 @@ int main(int argc, char** argv){
       tf::StampedTransform(
         tf::Transform(tf::Quaternion(odommsg.pose.pose.orientation.x, odommsg.pose.pose.orientation.y, odommsg.pose.pose.orientation.z, odommsg.pose.pose.orientation.w), 
 		      tf::Vector3(odommsg.pose.pose.position.x, odommsg.pose.pose.position.y, 0.0)),
-        ros::Time::now(),"/ropod/odom","/ropod/base_link"));      
+        ros::Time::now(),robotname + "/odom",robotname + "/base_link"));      
     
     
     /* Send transform for "ideal" localization in simulation*/

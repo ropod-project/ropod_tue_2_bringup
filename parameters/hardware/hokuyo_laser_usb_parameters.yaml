@@ -1,4 +1,4 @@
 serial_port: /dev/ttyACM4
-frame_id: /ropod/laser/scan
+frame_id: /ropod_tue_2/laser/scan
 angle_min: -2.0
 angle_max: 2.0
