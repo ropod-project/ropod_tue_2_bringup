@@ -40,7 +40,8 @@
                 <!-- Do for both: Simulator and Real Robot -->
 
                         <node name="ropod_low_level_control" pkg="ropod_low_level_control" type="ropod_low_level_control_ros" output="screen"> 
-                                <remap from="/$(arg robotCommonName)/ropod_low_level_control/odom" to="/$(arg robotName)/odom_incomplete"/> 
+                                <remap from="/$(arg robotCommonName)/ropod_low_level_control/odom" to="/$(arg robotName)/odom_incomplete"/>
+                                <remap from="/$(arg robotCommonName)/cmd_vel" to="/$(arg robotName)/cmd_vel"/> 
                         </node>
                         
                         <!-- Kinematic Controller: Executes velocity commands and publishes Odometry  -->		  
