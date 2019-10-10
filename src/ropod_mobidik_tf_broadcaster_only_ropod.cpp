@@ -143,7 +143,7 @@ int main(int argc, char** argv){
   odommsg.pose.pose.orientation.x = 0.0;
   odommsg.pose.pose.orientation.y = 0.0;
   odommsg.pose.pose.orientation.z = 0.0;
-  odommsg.pose.pose.orientation.w = 0.0;
+  odommsg.pose.pose.orientation.w = 1.0;
 
   ros::Rate r(30);
 
