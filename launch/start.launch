@@ -114,14 +114,14 @@
                                         <arg name="robot" value="$(arg robotName)"/>
                                 </include>
 
-                                <group ns="$(arg laser2_name)">
+                                <!-- <group ns="$(arg laser2_name)">
                                         <node pkg="urg_node" type="urg_node" name="urg_node" output="screen" >
                                                 <rosparam command="load" file="$(arg robot_bringup_path)/parameters/hardware/hokuyo_laser_back.yaml"/>
                                                 <remap from="/diagnostics" to="diagnostics_back"/>
                                          </node>
 
                                         <node name="laserBack_NoiseReduction" pkg="$(arg robotPackage)" type="laserBack_NoiseReduction" output="screen"/>
-                                </group>
+                                </group> -->
 
                                 <!--<node pkg="tf" type="static_transform_publisher" name="base2LRFBack_avg" args="0.285 0.0 0.29 0 0 0 /$(arg robotName)/base_link /$(arg robotName)/$(arg laser2_name)/scan 100" />-->
                                 <node pkg="tf" type="static_transform_publisher" name="base2LRFBack_avg" args="-0.262 0.14493 0.35 3.14 0 0 /$(arg robotName)/base_link /$(arg robotName)/$(arg laser2_name)/scan 100" />
