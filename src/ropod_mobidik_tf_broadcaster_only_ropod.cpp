@@ -75,6 +75,8 @@ void loadAttachedCallback(const std_msgs::Bool::ConstPtr& load_attached_msg)
     tf::Quaternion q;
     q.setRPY(0, 0, 0);
     if( load_attached_msg->data == true )
+        // use this to move TF to center of ropod/load
+        //base2loadTF = tf::Transform(q, tf::Vector3(-0.325, 0.0, 0.0));
         base2loadTF = tf::Transform(q, tf::Vector3(-1.045, 0.0, 0.0));
     else
         base2loadTF = tf::Transform(q, tf::Vector3(0.0, 0.0, 0.0));
@@ -113,34 +115,6 @@ void loadvelcmdCallback(const geometry_msgs::Twist::ConstPtr& msg){
   ropod_cmd_vel.angular.y =  msg->angular.y;
   ropod_cmd_vel.angular.z =  msg->angular.z;
   
-  double min_magn_xy_vel = 0.15;
-  double min_magn_theta_vel = 0.15;
-  double sc_factor;
-  if(std::abs(ropod_cmd_vel.linear.x) < min_magn_xy_vel && std::abs(ropod_cmd_vel.linear.x) < min_magn_xy_vel)      
-  {
-      if(std::abs(ropod_cmd_vel.linear.x)>std::abs(ropod_cmd_vel.linear.y) && std::abs(ropod_cmd_vel.linear.x) > 0.05)
-      {
-          sc_factor = std::abs(min_magn_xy_vel/ropod_cmd_vel.linear.x);
-          ropod_cmd_vel.linear.x  *= sc_factor;
-          ropod_cmd_vel.linear.y  *= sc_factor;
-          ropod_cmd_vel.angular.z *= sc_factor;
-          
-      }      
-      if (std::abs(ropod_cmd_vel.linear.y)>std::abs(ropod_cmd_vel.linear.x) && std::abs(ropod_cmd_vel.linear.y) > 0.05)
-      {
-          sc_factor = std::abs(min_magn_xy_vel/ropod_cmd_vel.linear.y);
-          ropod_cmd_vel.linear.x  *= sc_factor;
-          ropod_cmd_vel.linear.y  *= sc_factor;
-          ropod_cmd_vel.angular.z *= sc_factor;
-      }
-  }
-  
-  if(std::abs(ropod_cmd_vel.angular.z) < min_magn_theta_vel && std::abs(ropod_cmd_vel.angular.z) > 0.05 && ropod_cmd_vel.linear.x == 0.0 && ropod_cmd_vel.linear.y == 0.0)
-  {
-      sc_factor = std::abs(min_magn_theta_vel/ropod_cmd_vel.angular.z);
-      ropod_cmd_vel.angular.z *= sc_factor;
-  }
-    
   pub_robcmdvel.publish(ropod_cmd_vel);
 }
 
@@ -160,34 +134,6 @@ void joypadvelcmdCallback(const geometry_msgs::Twist::ConstPtr& msg){
   ropod_cmd_vel.angular.y =  msg->angular.y;
   ropod_cmd_vel.angular.z =  msg->angular.z;
   
-  double min_magn_xy_vel = 0.15;
-  double min_magn_theta_vel = 0.15;
-  double sc_factor;
-  if(std::abs(ropod_cmd_vel.linear.x) < min_magn_xy_vel && std::abs(ropod_cmd_vel.linear.x) < min_magn_xy_vel)      
-  {
-      if(std::abs(ropod_cmd_vel.linear.x)>std::abs(ropod_cmd_vel.linear.y) && std::abs(ropod_cmd_vel.linear.x) > 0.05)
-      {
-          sc_factor = std::abs(min_magn_xy_vel/ropod_cmd_vel.linear.x);
-          ropod_cmd_vel.linear.x  *= sc_factor;
-          ropod_cmd_vel.linear.y  *= sc_factor;
-          ropod_cmd_vel.angular.z *= sc_factor;
-          
-      }      
-      if (std::abs(ropod_cmd_vel.linear.y)>std::abs(ropod_cmd_vel.linear.x) && std::abs(ropod_cmd_vel.linear.y) > 0.05)
-      {
-          sc_factor = std::abs(min_magn_xy_vel/ropod_cmd_vel.linear.y);
-          ropod_cmd_vel.linear.x  *= sc_factor;
-          ropod_cmd_vel.linear.y  *= sc_factor;
-          ropod_cmd_vel.angular.z *= sc_factor;
-      }
-  }
-  
-  if(std::abs(ropod_cmd_vel.angular.z) < min_magn_theta_vel && std::abs(ropod_cmd_vel.angular.z) > 0.05 && ropod_cmd_vel.linear.x == 0.0 && ropod_cmd_vel.linear.y == 0.0)
-  {
-      sc_factor = std::abs(min_magn_theta_vel/ropod_cmd_vel.angular.z);
-      ropod_cmd_vel.angular.z *= sc_factor;
-  }
-    
   pub_joypadrobcmdvel.publish(ropod_cmd_vel);
 }
 

@@ -1,3 +1,2 @@
-hostname: 169.254.104.126
-port: 2112
-timelimit: 5
+serial_port: /dev/hokuyo
+frame_id: /ropod/laser/scan

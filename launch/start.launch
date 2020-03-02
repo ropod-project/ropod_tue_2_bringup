@@ -36,9 +36,19 @@
 		<group if="$(arg ROBOT_REAL)">
 	  	<!-- Do for both: Simulator and Real Robot -->
 
+      <node pkg="twist_mux" type="twist_mux" ns="ropod_platform" name="twist_mux" output="screen">
+          <remap from="cmd_vel_out" to="/cmd_vel"/>
+
+        <rosparam file="$(find ropod_twist_mux)/ros/config/locks.yaml"  command="load"/>
+        <rosparam file="$(find ropod_twist_mux)/ros/config/topics.yaml" command="load"/>
+      </node>
+
 		<node name="ropod_low_level_control" pkg="ropod_low_level_control" type="ropod_low_level_control_ros" output="screen"> 
-		
-				<remap from="/$(arg robotName)/ropod_low_level_control/odom" to="/$(arg robotName)/odom_incomplete"/> 
+            <param name="interfaceName"	value="enp2s0" />
+            <rosparam param="kinematicModel/xPositionSmartWheels"> [0.21, -0.21, -0.21, 0.21] </rosparam>
+            <rosparam param="kinematicModel/yPositionSmartWheels"> [-0.21, 0.21, -0.21, 0.21] </rosparam>
+			<remap from="/$(arg robotName)/ropod_low_level_control/odom" to="/$(arg robotName)/odom_incomplete"/> 
+            <remap from="/ropod/cmd_vel" to="/cmd_vel"/> 
 </node>
 		        <!-- Kinematic Controller: Executes velocity commands and publishes Odometry  -->		  
 <!--
@@ -95,18 +105,18 @@
 
                         <!-- Laser publishing -->
                         <group if="$(arg laser)">
-<!--                                <include file="$(find robot_common)/launch/hardware/hokuyo_laser.launch">
+                                <include file="$(find robot_common)/launch/hardware/hokuyo_laser.launch">
                                         <arg name="bringup_path" value="$(arg robot_bringup_path)"/>
                                         <arg name="name" value="$(arg laser1_name)"/>
                                         <arg name="robot" value="$(arg robotCommonName)"/>
                                 </include>
--->
 
-                                <include file="$(find robot_common)/launch/hardware/sick_laser.launch">
-                                        <arg name="bringup_path" value="$(arg robot_bringup_path)"/>
-						<arg name="name" value="$(arg laser1_name)"/>
-						<arg name="robot" value="$(arg robotName)"/>
-                                </include>
+
+                                <!-- <include file="$(find robot_common)/launch/hardware/sick_laser.launch"> -->
+                                <!--         <arg name="bringup_path" value="$(arg robot_bringup_path)"/> -->
+						<!-- <arg name="name" value="$(arg laser1_name)"/> -->
+						<!-- <arg name="robot" value="$(arg robotName)"/> -->
+                                <!-- </include> -->
                         </group>
 		</group>	
 	</group>

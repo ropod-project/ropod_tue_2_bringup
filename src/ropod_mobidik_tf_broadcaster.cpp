@@ -168,7 +168,8 @@ int main(int argc, char** argv){
   tf::Quaternion q;
   q.setRPY(0, 0, 0);
   
-  base2loadTF = tf::Transform(q, tf::Vector3(-1.045, 0.0, 0.0));
+  // base2loadTF = tf::Transform(q, tf::Vector3(-1.045, 0.0, 0.0));
+  base2loadTF = tf::Transform(q, tf::Vector3(0.0, 0.0, 0.0));
   
 
 
