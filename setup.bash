@@ -27,4 +27,5 @@ source ~/ropod-project-software/catkin_workspace/src/platform/robot_common/setup
 #unset ROS_HOSTNAME;
 
 
-export ROS_IP=`hostname -I`
+#export ROS_IP=`hostname -I`
+export ROS_IP=$ROPOD_TUE_2_IP
